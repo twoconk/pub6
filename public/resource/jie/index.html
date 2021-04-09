@@ -1,0 +1,235 @@
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>一起牛起来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="一起牛起来 组团学习 pub6.top">
+<meta name="description" content="一起牛起来，pub6.top，致力于提供翻转课堂的教学工具，为终身学习提供必要的帮助，构建开放的学习型社区">
+  <link rel="stylesheet" href="/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/res/css/global.css">
+</head>
+<body>
+
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="/">
+      <img src="/res/images/logo.png" alt="layui">
+    </a>
+    <ul class="layui-nav fly-nav layui-hide-xs">
+      <li class="layui-nav-item layui-this">
+        <a href="/"><i class="iconfont icon-jiaoliu"></i>广场</a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="https://pub6.top/cms/" target="_blank"><i class="iconfont icon-ui"></i>博客</a>
+      </li>
+    </ul> 
+    
+    <ul class="layui-nav fly-nav-user">
+      
+
+      <!-- 未登入的状态 -->
+      <div name="nologin" id="nologin" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/user/login.html"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/login.html">登入</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/reg.html">注册</a>
+        </li> 
+      </div>
+      
+      <!-- 登入后的状态 -->
+      <div  name="loginafter"  id="loginafter" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;">
+            <cite class="layui-hide-xs" id="user_nickname"></cite> 
+            <img id="user_avater">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <!-- <dd><a href="/user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd> -->
+            <dd><a href="/user/index.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+            <hr style="margin: 5px 0;">
+            <dd><a id = "loginOut" href="#" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      </div>
+
+
+    </ul>
+  </div>
+</div>
+
+<div class="fly-panel fly-column">
+  <div class="layui-container">
+    <ul class="layui-clear">
+      <li><a href="/">首页</a></li>  
+      <li class="layui-hide-xs layui-this"><a href="/jie/index.html">动态</a></li> 
+      <li><a href="/jie/detail.html?tid=8&uid=1">公告</a></li> 
+      <li><a href="/jie/detail.html?tid=4&uid=1">建议</a></li> 
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li> 
+      
+      <!-- 用户登入后显示 -->
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/index.html">我发起的学习</a></li> 
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/index.html#collection">我加入的学习</a></li> 
+    </ul> 
+    
+    <div class="fly-column-right layui-hide-xs"> 
+      <span class="fly-search"><i class="layui-icon"></i></span> 
+      <a href="/jie/add.html" class="layui-btn">创建学习主题</a> 
+    </div> 
+    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
+      <a href="/jie/add.html" class="layui-btn">创建学习主题</a> 
+    </div> 
+  </div>
+</div>
+
+<div class="layui-container">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8">
+
+      <span id="linkhome" class="layui-breadcrumb layui-hide" style="margin-left:20px;">
+        <a href="/">首页</a>
+        <a href="/jie/index.html" id="LIST_DETAIL">广场</a>
+        <a href="/jie/index.html" id="ITEM_DETAIL">主题</a>
+      </span>
+
+      <div class="fly-panel" style="margin-bottom: 0;">
+              
+        <div class="fly-panel-title fly-filter">
+          <a id="sort_default" href="javascript:" class="layui-this">默认</a>
+          <span class="fly-mid"></span>
+          <a  id="sort_indo" href="javascript:">未结</a>
+          <span class="fly-mid"></span>
+          <a id="sort_end" href="javascript:">结束</a>
+<!--           <span class="fly-mid"></span>
+          <a href="">精华</a>
+ --><!--           <span class="fly-filter-right layui-hide-xs">
+            <a href="" class="layui-this">按最新</a>
+            <span class="fly-mid"></span>
+            <a href="">按热议</a>
+          </span> -->
+        </div>
+
+        <div id="topic-list">
+          
+        </div> 
+        
+        <!-- <div class="fly-none">没有相关数据</div> -->
+    
+        <div id="topic_page" style="text-align: center">
+ 
+        </div>
+
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="fly-panel">
+        <h3 class="fly-panel-title">主题分类</h3>
+        <div id="catory_list"></div>
+      </div>
+
+      <dl class="fly-panel fly-list-one layui-hide">
+        <dt class="fly-panel-title">本周热议</dt>
+        <dd>
+          <a href="">基于 layui 的极简社区页面模版</a>
+          <span><i class="iconfont icon-renshu"></i> 16</span>
+        </dd> 
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+      <div class="fly-panel">
+        <div class="fly-panel-title">
+          广告区域
+        </div>
+        <div class="fly-panel-main">
+          <a href="" target="_blank" class="fly-zanzhu" style="background-color: #393D49;">虚席以待</a>
+        </div>
+      </div>
+      
+      <div class="fly-panel fly-link">
+        <h3 class="fly-panel-title">友情链接</h3>
+        <dl class="fly-panel-main">
+          <dd><a href="https://guaniutech.com/" target="_blank">呱牛笔记</a><dd> 
+          <dd><a href="http://layer.layui.com/" target="_blank">Layui</a><dd>  
+        </dl>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="fly-footer">
+  <p><a href="https://pub6.top" target="_blank">一起牛起来</a> 2021 &copy; <a href="https://it3q.com/" target="_blank"></a>promall@qq.com </p>
+  <p> 
+    <a href="https://it3q.com/" target="_blank">呱牛笔记</a>
+    <a href="https://pub6.top/cms/" target="_blank">博客</a>
+  </p>
+</div>
+
+<script src="/res/layui/layui.js"></script>
+<script>
+layui.cache.page = 'jie';
+layui.cache.innerName = 'topic_index'; 
+ 
+var url_string = window.location.href;
+
+var url = new URL(url_string);
+var tid = url.searchParams.get("tid");
+layui.cache.topictype = url.searchParams.get("type") || 0;
+layui.cache.currPage = url.searchParams.get("page") || 1;
+layui.cache.lasturl = "/jie/index.html?page="+layui.cache.currPage+"&type="+layui.cache.topictype;
+
+var router = layui.router(); 
+
+
+var CATEGORY_CACHE_TAG = "category"; 
+var  loadFromCache = function (name) { 
+
+  var cacheUser = layui.sessionData('pub6_com_user_cache_cat');
+  return cacheUser[name] || "{}";
+};
+
+layui.config({
+  version: "3.0.0"
+  ,base: '/res/mods/'
+}).extend({
+  fly: 'index'
+}).use(['fly'], function(){
+  var $ = layui.$
+  ,fly = layui.fly;
+
+
+  if (layui.cache.topictype != 0){
+    $('#linkhome').removeClass("layui-hide");
+
+    var category = loadFromCache(CATEGORY_CACHE_TAG);
+    var category_type = layui.cache.topictype ;
+    if(category && category.localeCompare("{}") != 0){ 
+      var categoryres =  JSON.parse(category);//JSON.stringify(cacheUser); 
+      for(let p = 0; p< categoryres['data'].length; p++){   
+        if(categoryres['data'][p]['id'] == category_type){
+          category_type = categoryres['data'][p]['name'];
+          break;
+        }
+      } 
+    }
+    $("#ITEM_DETAIL").attr("href", "/jie/index.html?type="+layui.cache.topictype);
+    $("#ITEM_DETAIL").html(category_type); 
+  }
+  //save 
+  fly.saveCurrUrlToCache(layui.cache.lasturl);
+});
+
+</script>
+
+</body>
+</html>

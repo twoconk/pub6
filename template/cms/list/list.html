@@ -1,0 +1,70 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <title>一起学习视频答疑社群</title>
+    <meta name="keywords" content="一起学习视频答疑社群">
+    <meta name="description"
+          content="一起学习视频答疑社群，互联网视频学习，翻转课堂学习方法推广">
+    <meta name="SiteName" content="一起学习视频答疑社群">
+    <meta name="SiteDomain" content="https://www.pub6.top">
+
+
+	<link rel="shortcut icon" type="image/x-icon" href="${.domain}image/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/qxkj.css"/>
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="${.domain}js/jquery1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="site">
+    <div class="container">
+        ${template "left_nav" .}
+        <div class="content-wrapper">
+            <div class="recent-content">
+                ${if ne .menu nil}
+                <h2><span>${.menu.Name}</span></h2>
+                ${else}
+                <h2><span>站内搜索</span></h2>
+                ${end}
+                ${range $index,$article := .list}
+                <div class="lista">
+                    <h3>
+                        <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank">${subStr $article.NewsTitle 24}</a>
+                    </h3>
+                    <div class="pov">
+                        <div class="sview">
+                            <div class="sviewl">
+                                <div class="tittop">
+                                    <b>发布于 ${$article.PublishedTime|timeFormatYear}</b>
+                                </div>
+                                <div class="art_summary">
+                                    <p>${subStr $article.NewsExcerpt 55}</p>
+                                </div>
+                                <div class="footbar">
+                                    ${$menus:=GetVarsValue $article.CateList}
+                                    ${range $k ,$v:=$menus}
+                                    <i class="footbar-category"><a href="${$.domain}cms/list/${$k}">${$v}</a></i>
+                                    ${end}
+                                    <i class="footbar-like"><a href="javascript:;">阅读(${$article.NewsHits})</a></i>
+                                </div>
+                            </div>
+                            <div class="sviewr">
+                                <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank"><img src="${$.domain}${$article.Thumbnail}"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ${end}
+            </div>
+            ${if .showPage}
+            <div class="pagination">
+                ${.pageStyle}
+            </div>
+            ${end}
+        </div>
+        ${template "sitebar" .}
+    </div>
+</div>
+</body>

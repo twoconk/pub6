@@ -1,0 +1,72 @@
+${define "sitebar"}
+<div class="sitebar">
+    <div class="searchbox">
+        <form id="searchform" method="get" action="${$.domain}cms/search/1">
+            <input type="search" name="keyWords" class="search-input" value="${.keyWords}" placeholder="请输入关键词" autocomplete="off">
+            <button type="submit" class="search-submit">搜索</button>
+        </form>
+    </div>
+    <div class="ali">
+        <a href="https://www.aliyun.com/activity/daily/bestoffer?userCode=fcor2omk">
+            <img src="${.domain}cms/images/ay.jpg">
+        </a>
+    </div>
+    <div class="sitebar-article">
+        <h2><span>推荐文章</span></h2>
+        <div class="sitebar-article-list">
+            <ul>
+                ${$newsParams := .newsParams}
+                ${$newsParams := SetNewsParams $newsParams "Recommended" "1"}
+                ${$listRec:=GetNewsList 0 4 (GetNewsParams $newsParams)}
+                ${range $index,$article := $listRec}
+                <li>
+                    <div class="artl">
+                        <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank">
+                            <p>${subStr $article.NewsTitle 20}</p>
+                        </a>
+                        <label>${$article.PublishedTime|timeFormatYear}</label>
+                    </div>
+                    ${if ne $article.Thumbnail ""}
+                    <div class="artr">
+                        <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank"><img src="${$.domain}${$article.Thumbnail}"></a>
+                    </div>
+                    ${end}
+                </li>
+                ${end}
+            </ul>
+        </div>
+    </div>
+
+    <div class="ali">
+        <a href="https://www.aliyun.com/daily-act/ecs/care?userCode=fcor2omk">
+            <img src="${.domain}cms/images/aliyun.jpg">
+        </a>
+    </div>
+
+    <div class="sitebar-article">
+        <h2><span>点击最多的文章</span></h2>
+        <div class="sitebar-article-list">
+            <ul>
+                ${$newsParams := .newsParams}
+                ${$newsParams := SetNewsParams $newsParams "OrderBy" "news.news_hits desc"}
+                ${$listHits:=GetNewsList 0 4 (GetNewsParams $newsParams)}
+                ${range $index,$article := $listHits}
+                <li>
+                    <div class="artl">
+                        <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank">
+                            <p>${subStr $article.NewsTitle 20}</p>
+                        </a>
+                        <label>${$article.PublishedTime|timeFormatYear}</label>
+                    </div>
+                    ${if ne $article.Thumbnail ""}
+                    <div class="artr">
+                        <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank"><img src="${$.domain}${$article.Thumbnail}"></a>
+                    </div>
+                    ${end}
+                </li>
+                ${end}
+            </ul>
+        </div>
+    </div>
+</div>
+${end}

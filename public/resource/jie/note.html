@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>一起牛起来-添加笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="一起牛起来 组团学习 pub6.top">
+<meta name="description" content="一起牛起来，pub6.top，致力于提供翻转课堂的教学工具，为终身学习提供必要的帮助，构建开放的学习型社区">
+  <link rel="stylesheet" href="/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/res/css/global.css">
+</head>
+<body>
+
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="/">
+      <img src="/res/images/logo.png" alt="layui">
+    </a>
+    <ul class="layui-nav fly-nav layui-hide-xs">
+      <li class="layui-nav-item layui-this">
+        <a href="/"><i class="iconfont icon-jiaoliu"></i>广场</a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="https://pub6.top/cms/" target="_blank"><i class="iconfont icon-ui"></i>博客</a>
+      </li>
+    </ul> 
+    
+    <ul class="layui-nav fly-nav-user">
+      
+      
+      <!-- 未登入的状态 -->
+      <div name="nologin" id="nologin" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/user/login.html"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/login.html">登入</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/reg.html">注册</a>
+        </li> 
+      </div>
+      
+      <!-- 登入后的状态 -->
+      <div  name="loginafter"  id="loginafter" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;">
+            <cite class="layui-hide-xs" id="user_nickname"></cite> 
+            <img id="user_avater">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd> 
+            <dd><a href="/user/index.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+            <hr style="margin: 5px 0;">
+            <dd><a id = "loginOut" href="#" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      </div>
+  
+
+    </ul>
+  </div>
+</div>
+
+<div class="layui-container fly-marginTop">
+  <span class="layui-breadcrumb">
+    <a href="/">首页</a>
+    <a href="/jie/index.html" id="LIST_DETAIL">广场</a>
+    <a href="/jie/index.html" id="ITEM_DETAIL">主题</a>
+  </span>
+  
+  <div class="fly-panel" pad20 style="padding-top: 5px;">
+    <!--<div class="fly-none">没有权限</div>-->
+    <div class="layui-form layui-form-pane">
+      <div class="layui-tab layui-tab-brief" lay-filter="user">
+        <ul class="layui-tab-title">
+          <li class="layui-this">给[<span id="TASK_NAME"></span>]添加笔记<!-- 编辑帖子 --></li>
+        </ul>
+        <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+          <div class="layui-tab-item layui-show">
+            <form action="/api.v2/topicnotes/add" method="post" after_sumbit_url="" id="EDIT_FORM_ACTION"  cacheName="NOTE_TOPIC_INPUT_CACHE" cacheNum = "2" >
+              <div class="layui-row layui-col-space15 layui-form-item">
+                <div class="layui-col-md12">
+                  <label for="title" class="layui-form-label">笔记标题</label>
+                  <div class="layui-input-block">
+                    <input type="text" id="title" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+                    <input type="hidden" name="topicId"  id="topicId" value="">  
+                  </div> 
+                </div> 
+              </div>  
+
+              <div class="layui-form-item layui-form-text">
+                <div class="layui-input-block">
+                  <textarea id="content" name="content" required lay-verify="required" placeholder="笔记内容" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                </div>
+              </div>
+            <!--   <div class="layui-form-item">
+                <div class="layui-inline">
+                  <label class="layui-form-label">是否开放</label>
+                  <div class="layui-input-inline" style="width: 190px;">
+                    <select name="status">  
+                      <option value="0">免费开放</option>
+                      <option value="1">收费开放</option>
+                      <option value="2">仅自己可见</option> 
+                    </select>
+                  </div> 
+                </div>
+              </div> -->
+              <div class="layui-form-item">
+                <label for="L_vercode" class="layui-form-label">验证码</label>
+                <div class="layui-input-inline">
+                  <input type="text" id="idValueC" name="idValueC" required lay-verify="required" placeholder="请填写验证码" autocomplete="off" class="layui-input"> 
+                </div>
+                <div class="layui-form-mid layui-word-aux">1+3=?</div>
+                <div class="layui-form-mid">
+                  <input type="text" id="idKeyC" name="idKeyC" class="layui-hide" value="">
+                  <span style="color: #c00;"><div id="verCode" name="verCode" class= "layui-hide">
+                    <img id="verCodeImg" name="verCodeImg" class=""/>
+                  </div></span>
+                </div> 
+              </div>
+              <div class="layui-form-item">
+                <button class="layui-btn" lay-filter="*" lay-submit>立即发布</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fly-footer">
+  <p><a href="https://pub6.top" target="_blank">一起牛起来</a> 2021 &copy; <a href="https://it3q.com/" target="_blank"></a>promall@qq.com </p>
+  <p> 
+    <a href="https://it3q.com/" target="_blank">呱牛笔记</a>
+    <a href="https://pub6.top/cms/" target="_blank">博客</a>
+  </p>
+</div>
+
+<script src="/res/layui/layui.js"></script>
+<script>
+layui.cache.page = 'jie';
+layui.cache.innerName = 'topic_note';
+
+var url_string = window.location.href;
+var url = new URL(url_string);
+var tid = url.searchParams.get("tid") || 0;
+var page = url.searchParams.get("page") || 1;
+var taskId = url.searchParams.get("taskId") || 0;
+var noteId = url.searchParams.get("noteId") || 0;
+layui.cache.taskId = taskId;
+layui.cache.noteId = noteId;
+
+
+layui.cache.tid = tid;
+layui.cache.topic_owner = false;
+
+layui.config({
+  version: "3.0.0"
+  ,base: '/res/mods/'
+}).extend({
+  fly: 'index'
+}).use('fly', function(){
+  var $ = layui.$
+  ,fly = layui.fly;
+
+
+  var router = layui.router();
+  var layer = layui.layer;
+
+  var NOTE_TOPIC_INPUT_CACHE= "NOTE_NOTE_TOPIC_INPUT_CACHE"; 
+  $("#title").on("input",function(e){
+      //获取input输入的值
+      if(e.delegateTarget.value.length > 0){ 
+        //缓存
+        fly.saveInputFromCache(NOTE_TOPIC_INPUT_CACHE+1, e.delegateTarget.value); 
+      } 
+  }); 
+  $("#content").on("input",function(e){
+      //获取input输入的值
+      if(e.delegateTarget.value.length > 0){ 
+        //缓存
+        fly.saveInputFromCache(NOTE_TOPIC_INPUT_CACHE+2, e.delegateTarget.value); 
+      } 
+  }); 
+  if (noteId == 0){ 
+    //查看note，取緩存
+    var title = fly.loadInputFromCache(NOTE_TOPIC_INPUT_CACHE+1);
+    var content = fly.loadInputFromCache(NOTE_TOPIC_INPUT_CACHE+2);
+    if(title && (JSON.stringify(title).localeCompare("{}") != 0)){  
+      $("#title").val(title);
+    }
+    if(content && (JSON.stringify(content).localeCompare("{}") != 0)){  
+      $("#content").val(content);
+    }
+  }
+
+  //获取更多列表
+  $("#LIST_DETAIL").attr("href", "/jie/index.html?page="+page);
+  $("#ITEM_DETAIL").attr("href", "/jie/detail.html?page="+page+"&tid="+tid); 
+  
+  $("#topicId").val(layui.cache.tid);
+  loadTopicFromCache = function () { 
+
+      var cacheDetail = layui.sessionData('pub6_com_user_cache_detail_topic');
+      var topicCacheStr= cacheDetail["TOPICDETAIL_"+layui.cache.tid] || {};
+
+
+      if(JSON.stringify(topicCacheStr) != '{}'){ 
+        //有缓存的topic数据
+        topic =  JSON.parse(topicCacheStr);// 
+        $("#TASK_NAME").html(topic['topic_name']);
+      }
+  }(); 
+});
+</script>
+
+</body>
+</html>

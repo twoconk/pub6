@@ -1,0 +1,452 @@
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>一起牛起来</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="一起牛起来 组团学习 pub6.top">
+<meta name="description" content="一起牛起来，pub6.top，致力于提供翻转课堂的教学工具，为终身学习提供必要的帮助，构建开放的学习型社区">
+  <link rel="stylesheet" href="/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/res/css/global.css">
+</head>
+<body>
+
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="/">
+      <img src="/res/images/logo.png" alt="layui">
+    </a>
+    <ul class="layui-nav fly-nav layui-hide-xs">
+      <li class="layui-nav-item layui-this">
+        <a href="/"><i class="iconfont icon-jiaoliu"></i>广场</a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="https://pub6.top/cms/" target="_blank"><i class="iconfont icon-ui"></i>博客</a>
+      </li>
+    </ul> 
+    
+    <ul class="layui-nav fly-nav-user">
+      
+
+      <!-- 未登入的状态 -->
+      <div name="nologin" id="nologin" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/user/login.html"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/login.html">登入</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/reg.html">注册</a>
+        </li> 
+      </div>
+      
+      <!-- 登入后的状态 -->
+      <div  name="loginafter"  id="loginafter" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;" tag="">   
+            <cite class="layui-hide-xs" id="user_nickname"></cite> 
+            <img id="user_avater" src="" tag="">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <!-- <dd><a href="/user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd> -->
+            <dd><a href="/user/index.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+            <hr style="margin: 5px 0;">
+            <dd><a id = "loginOut" href="#" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      </div>
+
+
+    </ul>
+  </div>
+</div>
+
+  <div class="fly-panel fly-column">
+    <div class="layui-container">
+      <ul class="layui-clear">
+      <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>  
+      <li><a href="/jie/index.html">动态</a></li> 
+      <li><a href="/jie/detail.html?tid=8&uid=1">公告</a></li> 
+      <li><a href="/jie/detail.html?tid=4&uid=1">建议</a></li> 
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li> 
+      
+      <!-- 用户登入后显示 -->
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/index.html">我发起的学习</a></li> 
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/index.html#collection">我加入的学习</a></li> 
+    </ul> 
+    
+    <div class="fly-column-right layui-hide-xs"> 
+      <span class="fly-search"><i class="layui-icon"></i></span> 
+      <a href="/jie/add.html" class="layui-btn">创建学习主题</a> 
+    </div> 
+    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
+      <a href="/jie/add.html" class="layui-btn">创建学习主题</a> 
+    </div>  
+  </div>
+</div>
+
+<div class="layui-container">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8 content detail"> 
+
+      <div class="fly-panel detail-box">
+        <h1 id= "topic_title"></h1>
+        <div class="fly-detail-info">
+          <!-- <span class="layui-badge">审核中</span> -->
+          <span class="layui-badge layui-bg-green fly-detail-column layui-hide">动态</span>
+          
+          <span class="layui-badge layui-hide" style="background-color: #999;">未结</span>
+          <!-- <span class="layui-badge" style="background-color: #5FB878;">已结</span> -->
+          
+          <span class="layui-badge layui-bg-black layui-hide">置顶</span>
+          <span class="layui-badge layui-bg-red layui-hide">精帖</span>
+          
+          <div class="fly-admin-box layui-hide" data-id="123">
+            <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+            
+            <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span> 
+            <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
+            
+            <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span> 
+            <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+          </div>
+
+        </div>
+        <div class="detail-about">
+          <a class="fly-avatar" href="/user/home.html" id = "USER_OWNER_HREF" >
+            <img id = "USER_OWNER_SRC" src="/res/images/avatar/default.png" alt="贤心">
+          </a>
+          <div class="fly-detail-user">
+            <a href="/user/home.html" id="TOPIC_USER_ID" class="fly-link">
+              <cite  id="TOPIC_USER_NAME"></cite> 
+            </a>
+            <span id="TOPIC_CREATE_TIME"></span>
+            <span class="fly-list-nums"> 
+              <a href="#comment"><i class="iconfont" title="加入">&#xe60c;</i> <span id="join_members"></span></a>
+              <i class="iconfont" title="人气">&#xe60b;</i> <span id="see_numbers"></span>
+            </span>
+          </div>
+          <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
+            <!-- <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>   -->
+            <span style="padding-right: 10px; color: #FF7200" id= "CREATE_TIME"></span>
+            <span class="layui-btn layui-btn-xs jie-admin" type="edit" id="isOwner"><a href="add.html" id="ownerEditHref">编辑</a></span>
+          </div>
+        </div> 
+          
+        <div class="detail-body photos">
+          <!-- markdown文本内容 加入Class属性进行md的样式修饰。防止与框架CSS冲突。非必填easyeditor-content -->
+         <div class="easyeditor-content"  id="detail-content" name="detail-content"> 
+         </div>
+        </div> 
+      </div>
+
+      <div class="fly-panel detail-box" id="flyReply">
+        <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+          <legend>主题任务</legend>
+        </fieldset>
+
+
+          <ul class="layui-timeline" id="task_list" name="task_list">
+           
+          </ul>   
+      </div>
+
+      <div class="fly-panel detail-box" id="flyReply">
+        <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+          <legend>留言区</legend>
+        </fieldset>
+
+        <ul class="jieda" id="jieda">
+         
+          
+
+          
+          <!-- 无数据时 -->
+          <!-- <li class="fly-none">消灭零回复</li> -->
+        </ul>
+        
+        <div class="layui-form layui-form-pane">
+          <div id="comment_page" style="text-align: center"></div>
+        </div>
+
+        <div class="layui-form layui-form-pane">
+          <form action="/api.v2/topic/addComment" method="post" id="commentForm" onFinishCallback="postCommentEnd()">
+            <div class="layui-form-item layui-form-text">
+              <a name="comment"></a>
+              <div class="layui-input-block">
+                <textarea id="content" name="content" required lay-verify="required" placeholder="请输入内容"  class="layui-textarea" style="height: 150px;"></textarea>
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <input type="hidden" name="topicId"  id="topicId" value="">  
+              <button class="layui-btn" after_sumbit_url= "#" lay-filter="*" lay-submit>提交回复</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+ 
+      <div class="fly-panel fly-signin">
+        <div class="fly-panel-title">
+          操作
+          <i class="fly-mid"></i> 
+          <a href="javascript:;" class="fly-link" id="LAY_signinHelp"></a> 
+          <span class="fly-signin-days">已加入<cite id="members_count"></cite>人</span>
+        </div>
+        <div class="fly-panel-main fly-rank ">
+          <button class="layui-btn layui-btn-disabled" id="LAY_join_topic" >加入主题</button>
+ 
+          <button class="layui-btn layui-btn-disabled" id="LAY_quit_topic">退出主题</button>
+              
+
+          <div id="br" style="margin: 10px 4px;"></div>
+          <!-- 登入后的状态 -->
+          <div  name="loginafterOwner"  id="loginafterOwner" class="layui-hide">
+
+            <button class="layui-btn layui-btn-danger" id="LAY_add_task" >添加任务</button> 
+            <button class="layui-btn layui-btn-danger" id="LAY_add_resource" >添加资源</button> 
+
+          </div>
+
+
+          <div id="br" style="margin: 10px 4px;"></div>
+          <!-- 加入后的状态 -->
+          <div  name="loginafterJoin"  id="loginafterJoin" class="">
+            <button class="layui-btn layui-btn-disabled" id="LAY_add_notes">添加笔记</button>
+          </div>
+          <!-- 已签到状态 -->
+          <!--
+          <button class="layui-btn layui-btn-disabled">今日已签到</button>
+          <span>获得了<cite>20</cite>飞吻</span>
+          -->
+        </div>
+      </div>
+
+      <div class="fly-panel fly-rank fly-rank-reply" id="LAY_replyRank">
+        <div class="fly-panel-title">
+          加入该主题 
+          
+          <span class="fly-signin-days"><a href="#"  id="LAY_more_members">更多</a> </span>
+        </div> 
+          <!--<i class="layui-icon fly-loading">&#xe63d;</i>-->  
+        <dl id="members_join_topic">
+
+ 
+        </dl> 
+        <div id="members_join_topic_no_member" class="layui-hide" style="margin-left: 15px;">没有相关数据</div>
+      </div>
+ 
+
+
+      <dl class="fly-panel fly-list-one" id="topic_resource">
+         
+
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+      <dl id="topic_notes"  class="fly-panel fly-list-one">
+        
+
+        <!-- 无数据时 -->
+        <!--
+        <div class="fly-none">没有相关数据</div>
+        -->
+      </dl>
+
+      <div class="fly-panel">
+        <div class="fly-panel-title">
+          广告区域
+        </div>
+        <div class="fly-panel-main">
+          <a href="http://layim.layui.com/?from=fly" target="_blank" class="fly-zanzhu" time-limit="2017.09.25-2099.01.01" style="background-color: #5FB878;">LayIM 3.0 - layui 旗舰之作</a>
+        </div>
+      </div>
+
+      <div class="fly-panel" style="padding: 20px 0; text-align: center;">
+        <img src="/res/images/weixin.jpg" style="max-width: 100%;" alt="layui">
+        <p style="position: relative; color: #666;">微信扫码关注</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="fly-footer">
+  <p><a href="https://pub6.top" target="_blank">一起牛起来</a> 2021 &copy; <a href="https://it3q.com/" target="_blank"></a>promall@qq.com </p>
+  <p> 
+    <a href="https://it3q.com/" target="_blank">呱牛笔记</a>
+    <a href="https://pub6.top/cms/" target="_blank">博客</a>
+  </p>
+</div>
+
+<script src="/res/js/marked.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/res/layui/layui.js"></script>
+<script> 
+
+layui.cache.page = 'jie';
+layui.cache.innerName = "detail";
+
+var url_string = window.location.href;
+var url = new URL(url_string);
+var tid = url.searchParams.get("tid") || 0;
+var uid = url.searchParams.get("uid") || uid;
+var page = url.searchParams.get("page") || 1;
+layui.cache.currPage = page;
+layui.cache.lasturl = "/jie/detail.html?tid="+tid+"&page="+page;
+
+layui.cache.uid = uid;
+layui.cache.tid = tid;
+layui.cache.topic_owner = false;
+layui.cache.topic_owner_id = 0;
+
+layui.config({
+  version: "3.0.0"
+  ,base: '/res/mods/'
+}).extend({
+  fly: 'index',
+        easyeditor: 'easyeditor'
+}).use(['fly', 'face', 'easyeditor'], function(){
+  var $ = layui.$
+  ,fly = layui.fly;
+  //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+  /*
+  $('.detail-body').each(function(){
+    var othis = $(this), html = othis.html();
+    othis.html(fly.content(html));
+  });
+  */
+
+  //获取更多列表
+  //$("#LIST_DETAIL").attr("href", "/jie/index.html?page="+page);
+  //$("#ITEM_DETAIL").attr("href", "/jie/detail.html?page="+page+"&tid="+tid); 
+
+  if (layui.cache.uid == layui.cache.user.uid){ 
+    layui.cache.topic_owner = true;
+  }
+  if (layui.cache.tid == 0){
+
+    layer.msg("页面错误", {shift: 6});
+  
+    setTimeout(function () {
+                          location.href = "../"; 
+                        }, 1000);  
+    return;
+  }
+
+  $("#topicId").val(layui.cache.tid);
+
+  //save 
+  fly.saveCurrUrlToCache(layui.cache.lasturl);
+
+
+  var router = layui.router();
+  var layer = layui.layer;
+
+
+  loadTopicFromCache = function (page) { 
+
+      var cacheUser = layui.sessionData('pub6_com_user_cache_topic_all');
+      return cacheUser["alllist_"+page] || {};
+  } 
+  saveDetailTopicToCache = function(name, value){ 
+      var saveData = {key:name, value:value};
+      layui.sessionData('pub6_com_user_cache_detail_topic', saveData);//把AJSON对象存储为字符串
+  }
+
+  var getDataFromWeb = function (){
+
+    fly.json("/pub6/topic/get", {"id":layui.cache.tid}, function(res){ 
+      if(res.code == 0){ 
+          //console.log("getDetail res:"+ ", res:"+ JSON.stringify(res) );//
+          if(!res['data']){ 
+            layer.msg("主题不存在", {shift: 6});
+          
+            setTimeout(function () {
+                                  location.href = "../"; 
+                                }, 1000);  
+          }
+          var topic_name = res['data']['topic_name'];
+          var topic_content = res['data']['topic_content'];
+          var name = res['data']['name'];
+          var avatar = res['data']['ext'];
+          var uid = res['data']['create_owner_id'];
+          var create_time = res['data']['create_time'];
+          layui.cache.topic_owner_id = uid;
+
+          //增加转义处理
+
+          topic_name = fly.htmlEscape(topic_name).trim();
+          topic_content = fly.htmlEscape(topic_content).trim();
+          topic_content = fly.content(topic_content);
+
+          var see_num = res['data']['see_num'];
+          var join_num = res['data']['members_number'];
+
+          //更新加入人数 
+          $("#members_count").html(join_num);
+
+          //add page -html
+          $("#page_title").html(topic_name);
+
+          $("#topic_title").append(topic_name);
+          $("#detail-content").html(topic_content);
+          $("#TOPIC_USER_NAME").html(name);
+          $("#TOPIC_USER_ID").attr("href", "/user/home.html?uid="+uid);
+
+          $("#join_members").append(join_num+"");
+          $("#see_numbers").append(see_num+"");
+          $("#CREATE_TIME").html(create_time+"");
+
+          // var easyeditor = layui.easyeditor;
+          // easyeditor.render({
+          //   elem:".easyeditor-content" //存放md内容的元素ID
+          // });
+
+          if (avatar && avatar.length > 0){
+            //html = html.replace(/USER_OWNER_SRC/g, avatar);
+            $("#USER_OWNER_SRC").attr("src", avatar);
+          }
+          $("#USER_OWNER_SRC").attr("alt", name);
+          $("#USER_OWNER_HREF").attr("href", "/user/home.html?uid="+uid);
+          
+          layui.cache.uid = uid;
+          if (layui.cache.user.uid == layui.cache.uid){
+            layui.cache.topic_owner = true;
+            $("#loginafterOwner").removeClass("layui-hide");
+
+            //标识不需要加入
+            $("#LAY_quit_topic").removeClass("layui-btn-danger");
+            $("#LAY_quit_topic").addClass("layui-btn-disabled");
+            $("#LAY_join_topic").addClass("layui-btn-disabled"); 
+            //$("#LAY_add_notes").addClass("layui-btn-disabled");
+            $("#LAY_add_notes").addClass("layui-btn-danger"); 
+            $("#LAY_add_notes").removeClass("layui-btn-disabled"); 
+
+
+            $("#ownerEditHref").attr("href", "/jie/add.html?tid="+tid); 
+          }else{
+            $("#isOwner").addClass("layui-hide");
+          }
+          //加入一个组的才有这个操作权限
+          saveDetailTopicToCache("TOPICDETAIL_"+tid, JSON.stringify(res['data']));
+      };
+    }, {type:"Get"});  
+  };
+
+  //直接获取该主题详情
+  getDataFromWeb(); 
+   
+
+});
+</script>
+
+</body>
+</html>

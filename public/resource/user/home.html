@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>一起牛起来-用户主页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="一起牛起来 组团学习 pub6.top">
+<meta name="description" content="一起牛起来，pub6.top，致力于提供翻转课堂的教学工具，为终身学习提供必要的帮助，构建开放的学习型社区">
+  <link rel="stylesheet" href="/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/res/css/global.css">
+</head>
+<body style="margin-top: 65px;">
+
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="/">
+      <img src="/res/images/logo.png" alt="layui">
+    </a>
+    <ul class="layui-nav fly-nav layui-hide-xs">
+      <li class="layui-nav-item layui-this">
+        <a href="/"><i class="iconfont icon-jiaoliu"></i>广场</a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="https://pub6.top/cms/" target="_blank"><i class="iconfont icon-ui"></i>博客</a>
+      </li>
+    </ul>
+    </ul>
+    
+    <ul class="layui-nav fly-nav-user">
+
+      <!-- 未登入的状态 -->
+      <div name="nologin" id="nologin" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/user/login.html"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/login.html">登入</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/user/reg.html">注册</a>
+        </li> 
+      </div>
+      
+      <!-- 登入后的状态 -->
+      <div  name="loginafter"  id="loginafter" class="layui-hide">
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;">
+            <cite class="layui-hide-xs" id="user_nickname"></cite> 
+            <img id="user_avater">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <!-- <dd><a href="/user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd> -->
+            <dd><a href="/user/index.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+            <hr style="margin: 5px 0;">
+            <dd><a id = "loginOut" href="#" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      </div>
+
+    </ul>
+  </div>
+</div>
+
+<div class="fly-home fly-panel" style="background-image: url();">
+  <img id="user_avater_header" src="/res/images/avatar/default.png" alt=""> 
+  <h1>
+    <span id="user_name"></span> 
+  </h1>
+
+  <p style="padding: 10px 0; color: #5FB878;" id = "user_nickname_other"></p>
+
+  <p class="fly-home-info">
+    <i class="iconfont icon-shijian"></i><span id = "user_joinTime">2015-6-17 加入</span>
+    <i class="iconfont icon-chengshi"></i><span id = "user_city"></span>
+  </p>
+
+  <p class="fly-home-sign" id = "user_signnote">人生是一场修行</p>
+  <p class="fly-home-sign" id = "user_homesite"></p>
+
+<!--   <div class="fly-sns" data-user="">
+    <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
+    <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
+  </div> -->
+
+</div>
+
+<div class="layui-container">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md6 fly-home-jie">
+      <div class="fly-panel">
+        <h3 class="fly-panel-title">创建的学习主题</h3>
+
+
+        <div id="topic-list">
+          
+        </div> 
+        
+        <!-- <div class="fly-none">没有相关数据</div> -->
+    
+        <div id="topic_page" style="text-align: center">
+ 
+        </div>
+
+
+      </div>
+    </div>
+    
+    <div class="layui-col-md6 fly-home-jie">
+      <div class="fly-panel">
+        <h3 class="fly-panel-title" id = "joinTopicContent">加入的学习主题</h3>
+
+
+          <div id="topic-list-join">
+            
+          </div> 
+          
+          <!-- <div class="fly-none">没有相关数据</div> -->
+      
+          <div id="topic_page-join" style="text-align: center">
+   
+          </div> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fly-footer">
+  <p><a href="https://pub6.top" target="_blank">一起牛起来</a> 2021 &copy; <a href="https://it3q.com/" target="_blank"></a>promall@qq.com </p>
+  <p> 
+    <a href="https://it3q.com/" target="_blank">呱牛笔记</a>
+    <a href="https://pub6.top/cms/" target="_blank">博客</a>
+  </p>
+</div>
+
+<script src="/res/layui/layui.js"></script>
+<script>
+layui.cache.page = 'user';
+layui.cache.innerName = 'other'; 
+
+var url_string = window.location.href;
+
+var url = new URL(url_string);
+var uid = url.searchParams.get("uid");
+layui.cache.currPage = url.searchParams.get("page") || 1;
+layui.cache.currJoinPage = url.searchParams.get("joinpage") || 1;
+layui.cache.lasturl = "/user/home.html?uid="+uid;
+layui.cache.curruid = uid;
+
+layui.config({
+  version: "3.0.0"
+  ,base: '/res/mods/'
+}).extend({
+  fly: 'index' ,
+    qiniuyun: 'qiniuyun/index',
+}).use(['fly', 'user'], function(){
+
+  var $ = layui.$
+  ,fly = layui.fly;
+
+
+  //save 
+  fly.saveCurrUrlToCache(layui.cache.lasturl);
+});
+
+</script>
+
+</body>
+</html>

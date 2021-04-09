@@ -1,0 +1,78 @@
+# 数据库连接
+[database]
+    type    =   "mysql"
+    host    =   "127.0.0.1"
+    port    =   "3306"
+    user    =   ""
+    pass    =   ""
+    name    =   "gfast"
+    charset   = "utf8mb4" #数据库编码
+    maxIdle      = "10" #连接池最大闲置的连接数
+    maxOpen     = "10" #连接池最大打开的连接数
+    maxLifetime  = "30" #(单位秒)连接对象可重复使用的时间长度
+    debug  = true
+    path   = "data/log/sql"
+    level  = "all"
+    stdout = true
+
+#web服务器配置
+[server]
+    Address          = ":8200"
+    ServerRoot       = "./public/resource"
+    AccessLogEnabled = true
+    ErrorLogEnabled  = true
+    PProfEnabled     = true
+    LogPath          = "./data/log/server_log"
+    SessionIdName    = "sysSessionId"
+    SessionPath      = "./data/session"
+    SessionMaxAge    = "24h"
+    DumpRouterMap    = true
+    NameToUriType = 3
+
+
+# Redis数据库配置
+[redis]
+    default = "127.0.0.1:6379,1"
+
+#jwt配置
+[gToken]
+    CacheMode = 1
+    CacheKey = "GToken:"
+    Timeout = 0
+    MaxRefresh = 0
+    TokenDelimiter="_"
+    EncryptKey = "poei29a83idakguqjq29asd9asd8a7jhq"
+    AuthFailMsg = "登录超时，请重新登录"
+    MultiLogin = true
+
+#单例日志配置 g.Log(单例名称)获取Logger单例对象时
+[logger]
+    path   = "./data/log/run_log"
+    level  = "all"
+    stdout = true
+
+#casbin配置
+[casbin]
+    modelFile="./config/casbin_conf/rbac_model.conf"
+    policyFile="./config/casbin_conf/rbac_policy.csv"
+
+#后台相关配置
+[adminInfo]
+    notCheckAuthAdminIds = [1,2,31]  #无需验证后台权限的用户id
+    pageNum = 10  #后台列表分页长度
+    dataDir =  "./data"  #数据目录
+
+# Gen
+[gen]
+    author        = "gfast"
+    moduleName    = "topic"
+    packageName   = "gfast"
+    autoRemovePre = false
+    tablePrefix   = "t_,sys_"
+
+
+#模板配置
+[viewer]
+    paths       = ["./template"]
+    defaultFile = "index.html"
+    delimiters  =  ["${", "}"]

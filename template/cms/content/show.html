@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <title>一起学习视频答疑社群</title>
+    <meta name="keywords" content="一起学习视频答疑社群">
+    <meta name="description"
+          content="一起学习互联网视频答疑社群，互联网视频学习，翻转课堂学习方法推广">
+    <meta name="SiteName" content="一起学习视频答疑社群">
+    <meta name="SiteDomain" content="https://www.pub6.top">
+
+	<link rel="shortcut icon" type="image/x-icon" href="${.domain}image/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/qxkj.css"/>
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <script type="text/javascript" src="${.domain}js/jquery1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="site">
+    <div class="container">
+        ${template "left_nav" .}
+        <div class="content-wrapper">
+            <div class="recent-content">
+                <div class="showart">
+                    <div class="loccrumbs"><span>您当前的位置 ></span>
+                        <a href="${.domain}cms">首页 </a> >
+                        ${$breadMenus:=GetMenuBreadTree .menu}
+                        ${range $index,$menu:= $breadMenus}
+                            ${if eq $menu.cate_type 4}
+                            <!-- 单页栏目必定是导航尽头，所以只需要栏目名即可 -->
+                            <a href="javascript:;">${index $menu "name"}</a>
+                            ${else}
+                                <a href="${$.domain}cms/list/${$menu.id}">${index $menu "name"}</a> ${if lt (add $index 1) (len $breadMenus)}>${end}
+                            ${end}
+                        ${end}
+                    </div>
+                    <h3>
+                        ${if eq .menu.CateType 4}
+                            <a href="javascript:;">${$.menu.Name}</a>
+                        ${else}
+                            <a href="javascript:;">${.newsInfo.NewsTitle}</a>
+                        ${end}
+                    </h3>
+                    ${if ne .menu.CateType 4}
+                    <div class="footbar">
+                        <i class="footbar-like">来源：${.newsInfo.NewsSource} </i>
+                        <i class="footbar-like">作者：${.author.FValue} </i>
+                        <i class="footbar-like">发布时间：${.newsInfo.PublishedTime|timeFormatYear} </i>
+                        <i class="footbar-like"><a href="#">阅读(${.newsInfo.NewsHits})</a></i>
+                    </div>
+                    ${end}
+                    <div class="showcontent">
+                        ${if eq .menu.CateType 4}
+                        ${$.menu.CateContent}
+                        ${else}
+                        ${$.content.FValue}
+                        ${end}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ${template "sitebar" .}
+</div>
+</div>
+</body>

@@ -1,0 +1,103 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>一起学习视频答疑社群</title>
+    <meta name="keywords" content="一起学习视频答疑社群">
+    <meta name="description"
+          content="一起学习视频答疑社群，互联网视频学习，翻转课堂学习方法试验区，互助讨论，答疑，展示学习成果">
+    <meta name="SiteName" content="一起学习视频答疑社群">
+    <meta name="SiteDomain" content="https://www.pub6.top">
+    <link rel="shortcut icon" type="image/x-icon" href="${.domain}image/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/qxkj.css"/>
+    <link rel="stylesheet" type="text/css" href="${.domain}cms/css/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link href="${.domain}css/swiper-6.1.1/swiper-bundle.min.css" rel="stylesheet">
+    <script type="text/javascript" src="${.domain}js/jquery1.9.1/jquery.min.js"></script>
+    <script src="${.domain}js/swiper-6.1.1/swiper-bundle.min.js"></script>
+    <script type="text/javascript">
+        $(function (){
+            var mySwiper = new Swiper('.swiper-container', {
+                loop: true, // 循环模式选项
+                autoplay:false,
+                 autoplay: {
+                     delay: 3000, // 3秒切换一次
+                 }, // 自动切换
+                // 如果需要前进后退按钮
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            })
+        })
+    </script>
+</head>
+
+<body>
+<div class="site">
+    <div class="container">
+        ${template "left_nav" .}
+        <div class="content-wrapper">
+            <div class="gslider">
+                ${$newsParams := .newsParams}
+                ${$newsParams := SetNewsParams $newsParams "IsSlide" "1"}
+                ${$listSlide:=GetNewsList 0 5 (GetNewsParams $newsParams)}
+                <!-- 图片滑动 -->
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        ${range $index,$article := $listSlide}
+                        <div class="swiper-slide">
+                            <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank">
+                                <img src="${$.domain}${$article.Thumbnail}">
+                                <h3 class="slide-title">${$article.NewsTitle}</h3>
+                            </a>
+                        </div>
+                        ${end}
+                    </div>
+                    <!-- 分页器 -->
+                    <div class="swiper-pagination"></div>
+                    <!-- 导航按钮 -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="recent-content">
+                <h2><span>最新发布</span></h2>
+                ${$list:=GetNewsList 0 7}
+                ${range $index,$article := $list}
+                <div class="lista">
+                    <h3>
+                        <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank">${subStr $article.NewsTitle 24}</a>
+                    </h3>
+                    <div class="pov">
+                        <div class="sview">
+                            <div class="sviewl">
+                                <div class="tittop">
+                                    <b>发布于 ${$article.PublishedTime|timeFormatYear}</b>
+                                </div>
+                                <div class="art_summary">
+                                    <p>${subStr $article.NewsExcerpt 55}</p>
+                                </div>
+                                <div class="footbar">
+                                    ${$menus:=GetVarsValue $article.CateList}
+                                    ${range $k ,$v:=$menus}
+                                    <i class="footbar-category"><a href="${$.domain}cms/list/${$k}">${$v}</a></i>
+                                    ${end}
+                                    <i class="footbar-like"><a href="javascript:;">阅读(${$article.NewsHits})</a></i>
+                                </div>
+                            </div>
+                            ${if ne $article.Thumbnail ""}
+                            <div class="sviewr">
+                                <a href="${$.domain}cms/show/${$article.CateList | getArticleCateId}/${$article.Id}" target="_blank"><img src="${$.domain}${$article.Thumbnail}"></a>
+                            </div>
+                            ${end}
+                        </div>
+                    </div>
+                </div>
+                ${end}
+            </div>
+        </div>
+        ${template "sitebar" .}
+    </div>
+</div>
+</body>
